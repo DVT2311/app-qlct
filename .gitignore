@@ -1,0 +1,41 @@
+node_modules
+.pnpm-store
+
+# turbo
+.turbo
+
+# build outputs
+dist
+build
+.next
+.expo
+.expo-shared
+web-build
+
+# native
+android
+ios
+*.orig.*
+
+# env
+.env
+.env.local
+.env.*.local
+
+# supabase
+supabase/.branches
+supabase/.temp
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# editor / os
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+
+# test coverage
+coverage

@@ -1,0 +1,1 @@
+-- Dữ liệu mẫu Minh & Lan (SPEC.md mục 9). Sẽ điền sau khi có migration schema (M2).
