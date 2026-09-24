@@ -71,6 +71,7 @@ export default function LoginScreen() {
             >
               <ThemedText
                 type="smallBold"
+                numberOfLines={1}
                 style={mode === "sign-in" ? styles.tabTextActive : undefined}
               >
                 Đăng nhập
@@ -82,6 +83,7 @@ export default function LoginScreen() {
             >
               <ThemedText
                 type="smallBold"
+                numberOfLines={1}
                 style={mode === "sign-up" ? styles.tabTextActive : undefined}
               >
                 Đăng ký
@@ -155,7 +157,8 @@ const styles = StyleSheet.create({
   },
   tab: {
     flex: 1,
-    minHeight: 36,
+    minHeight: 40,
+    paddingHorizontal: 8,
     borderRadius: 8,
     alignItems: "center",
     justifyContent: "center",
