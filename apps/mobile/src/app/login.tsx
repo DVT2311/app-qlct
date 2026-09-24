@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     borderColor: "#E4DDD0",
     padding: 24,
   },
-  header: { gap: 2, marginBottom: 8 },
+  header: { gap: 6, marginBottom: 8 },
   tabs: {
     flexDirection: "row",
     gap: 4,

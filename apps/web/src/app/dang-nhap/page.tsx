@@ -57,7 +57,7 @@ export default function LoginPage() {
   return (
     <main className={styles.page}>
       <div className={styles.card}>
-        <div>
+        <div className={styles.header}>
           <h1 className={styles.title}>Sổ Đôi</h1>
           <p className={styles.subtitle}>Quản lý tài chính cùng nhau</p>
         </div>
