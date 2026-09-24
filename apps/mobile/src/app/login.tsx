@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pressable, StyleSheet, TextInput } from "react-native";
+import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Redirect } from "expo-router";
 import { colors, radius } from "@so-doi/tokens";
@@ -57,14 +57,14 @@ export default function LoginScreen() {
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <ThemedView type="backgroundElement" style={styles.card}>
-          <ThemedView style={styles.header}>
+          <View style={styles.header}>
             <ThemedText type="subtitle">Sổ Đôi</ThemedText>
             <ThemedText type="small" themeColor="textSecondary">
               Quản lý tài chính cùng nhau
             </ThemedText>
-          </ThemedView>
+          </View>
 
-          <ThemedView style={styles.tabs}>
+          <View style={styles.tabs}>
             <Pressable
               style={[styles.tab, mode === "sign-in" && { backgroundColor: colors.ink }]}
               onPress={() => setMode("sign-in")}
@@ -87,7 +87,7 @@ export default function LoginScreen() {
                 Đăng ký
               </ThemedText>
             </Pressable>
-          </ThemedView>
+          </View>
 
           <TextInput
             style={styles.input}
