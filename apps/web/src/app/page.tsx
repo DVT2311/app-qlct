@@ -1,4 +1,3 @@
-import { colors } from "@so-doi/tokens";
 import { createClient } from "@/lib/supabase/server";
 import { SignOutButton } from "./sign-out-button";
 import styles from "./page.module.css";
@@ -14,9 +13,9 @@ export default async function Home() {
     : { data: null };
 
   return (
-    <main className={styles.main} style={{ backgroundColor: colors.bg, color: colors.ink }}>
-      <h1>Sổ Đôi</h1>
-      <p style={{ color: colors.muted }}>
+    <main className={styles.main}>
+      <h1 className={styles.title}>Sổ Đôi</h1>
+      <p className={styles.subtitle}>
         {profile ? `Xin chào, ${profile.display_name}` : "Web dashboard đang được xây dựng."}
       </p>
       {user && <SignOutButton />}

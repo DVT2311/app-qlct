@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import styles from "./page.module.css";
 
 export function SignOutButton() {
   const router = useRouter();
@@ -14,7 +15,7 @@ export function SignOutButton() {
   }
 
   return (
-    <button type="button" onClick={handleSignOut}>
+    <button type="button" className={styles.signOut} onClick={handleSignOut}>
       Đăng xuất
     </button>
   );

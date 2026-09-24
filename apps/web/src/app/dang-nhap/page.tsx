@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { colors } from "@so-doi/tokens";
 import { createClient } from "@/lib/supabase/client";
+import styles from "./page.module.css";
 
 type Mode = "sign-in" | "sign-up";
 
@@ -55,31 +55,34 @@ export default function LoginPage() {
   }
 
   return (
-    <main style={{ backgroundColor: colors.bg, minHeight: "100vh" }}>
-      <div
-        style={{
-          maxWidth: 360,
-          margin: "0 auto",
-          padding: "64px 24px",
-          display: "flex",
-          flexDirection: "column",
-          gap: 16,
-        }}
-      >
-        <h1 style={{ color: colors.ink }}>Sổ Đôi</h1>
+    <main className={styles.page}>
+      <div className={styles.card}>
+        <div>
+          <h1 className={styles.title}>Sổ Đôi</h1>
+          <p className={styles.subtitle}>Quản lý tài chính cùng nhau</p>
+        </div>
 
-        <div style={{ display: "flex", gap: 8 }}>
-          <button type="button" onClick={() => setMode("sign-in")} disabled={mode === "sign-in"}>
+        <div className={styles.tabs}>
+          <button
+            type="button"
+            className={`${styles.tab} ${mode === "sign-in" ? styles.tabActive : ""}`}
+            onClick={() => setMode("sign-in")}
+          >
             Đăng nhập
           </button>
-          <button type="button" onClick={() => setMode("sign-up")} disabled={mode === "sign-up"}>
+          <button
+            type="button"
+            className={`${styles.tab} ${mode === "sign-up" ? styles.tabActive : ""}`}
+            onClick={() => setMode("sign-up")}
+          >
             Đăng ký
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <form onSubmit={handleSubmit} className={styles.form}>
           {mode === "sign-up" && (
             <input
+              className={styles.input}
               type="text"
               placeholder="Tên hiển thị"
               value={displayName}
@@ -87,6 +90,7 @@ export default function LoginPage() {
             />
           )}
           <input
+            className={styles.input}
             type="email"
             placeholder="Email"
             value={email}
@@ -94,6 +98,7 @@ export default function LoginPage() {
             required
           />
           <input
+            className={styles.input}
             type="password"
             placeholder="Mật khẩu"
             value={password}
@@ -101,17 +106,15 @@ export default function LoginPage() {
             required
             minLength={6}
           />
-          {error && <p style={{ color: "#B4502A" }}>{error}</p>}
-          <button
-            type="submit"
-            disabled={loading}
-            style={{ backgroundColor: colors.ink, color: "#fff" }}
-          >
+          {error && <p className={styles.error}>{error}</p>}
+          <button type="submit" className={styles.primaryButton} disabled={loading}>
             {loading ? "Đang xử lý…" : mode === "sign-in" ? "Đăng nhập" : "Tạo tài khoản"}
           </button>
         </form>
 
-        <button type="button" onClick={handleGoogleSignIn}>
+        <div className={styles.divider}>hoặc</div>
+
+        <button type="button" className={styles.secondaryButton} onClick={handleGoogleSignIn}>
           Tiếp tục với Google
         </button>
       </div>

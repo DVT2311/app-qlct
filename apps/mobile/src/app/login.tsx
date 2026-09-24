@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Pressable, StyleSheet, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Redirect } from "expo-router";
-import { colors } from "@so-doi/tokens";
+import { colors, radius } from "@so-doi/tokens";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useSession } from "@/hooks/use-session";
@@ -56,51 +56,76 @@ export default function LoginScreen() {
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
-        <ThemedText type="title">Sổ Đôi</ThemedText>
+        <ThemedView type="backgroundElement" style={styles.card}>
+          <ThemedView style={styles.header}>
+            <ThemedText type="subtitle">Sổ Đôi</ThemedText>
+            <ThemedText type="small" themeColor="textSecondary">
+              Quản lý tài chính cùng nhau
+            </ThemedText>
+          </ThemedView>
 
-        <ThemedView style={styles.tabs}>
-          <Pressable onPress={() => setMode("sign-in")}>
-            <ThemedText type={mode === "sign-in" ? "smallBold" : "small"}>Đăng nhập</ThemedText>
+          <ThemedView style={styles.tabs}>
+            <Pressable
+              style={[styles.tab, mode === "sign-in" && { backgroundColor: colors.ink }]}
+              onPress={() => setMode("sign-in")}
+            >
+              <ThemedText
+                type="smallBold"
+                style={mode === "sign-in" ? styles.tabTextActive : undefined}
+              >
+                Đăng nhập
+              </ThemedText>
+            </Pressable>
+            <Pressable
+              style={[styles.tab, mode === "sign-up" && { backgroundColor: colors.ink }]}
+              onPress={() => setMode("sign-up")}
+            >
+              <ThemedText
+                type="smallBold"
+                style={mode === "sign-up" ? styles.tabTextActive : undefined}
+              >
+                Đăng ký
+              </ThemedText>
+            </Pressable>
+          </ThemedView>
+
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            placeholderTextColor={colors.muted}
+            autoCapitalize="none"
+            keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Mật khẩu"
+            placeholderTextColor={colors.muted}
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+          />
+
+          {error && <ThemedText style={{ color: colors.personB }}>{error}</ThemedText>}
+
+          <Pressable
+            style={[styles.button, { backgroundColor: colors.ink }]}
+            onPress={handleSubmit}
+            disabled={submitting}
+          >
+            <ThemedText style={{ color: "#fff" }}>
+              {submitting ? "Đang xử lý…" : mode === "sign-in" ? "Đăng nhập" : "Tạo tài khoản"}
+            </ThemedText>
           </Pressable>
-          <Pressable onPress={() => setMode("sign-up")}>
-            <ThemedText type={mode === "sign-up" ? "smallBold" : "small"}>Đăng ký</ThemedText>
+
+          <Pressable style={styles.button} onPress={handleGoogleSignIn}>
+            <ThemedText>Tiếp tục với Google</ThemedText>
+          </Pressable>
+          <Pressable style={styles.button} onPress={handleAppleSignIn}>
+            <ThemedText>Tiếp tục với Apple</ThemedText>
           </Pressable>
         </ThemedView>
-
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          autoCapitalize="none"
-          keyboardType="email-address"
-          value={email}
-          onChangeText={setEmail}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Mật khẩu"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
-
-        {error && <ThemedText style={{ color: colors.personB }}>{error}</ThemedText>}
-
-        <Pressable
-          style={[styles.button, { backgroundColor: colors.ink }]}
-          onPress={handleSubmit}
-          disabled={submitting}
-        >
-          <ThemedText style={{ color: "#fff" }}>
-            {submitting ? "Đang xử lý…" : mode === "sign-in" ? "Đăng nhập" : "Tạo tài khoản"}
-          </ThemedText>
-        </Pressable>
-
-        <Pressable style={styles.button} onPress={handleGoogleSignIn}>
-          <ThemedText>Tiếp tục với Google</ThemedText>
-        </Pressable>
-        <Pressable style={styles.button} onPress={handleAppleSignIn}>
-          <ThemedText>Tiếp tục với Apple</ThemedText>
-        </Pressable>
       </SafeAreaView>
     </ThemedView>
   );
@@ -108,8 +133,34 @@ export default function LoginScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  safeArea: { flex: 1, justifyContent: "center", paddingHorizontal: 24, gap: 12 },
-  tabs: { flexDirection: "row", gap: 16, marginBottom: 8 },
+  safeArea: { flex: 1, alignItems: "center", justifyContent: "center", padding: 24 },
+  card: {
+    width: "100%",
+    maxWidth: 380,
+    gap: 12,
+    borderRadius: radius.card,
+    borderWidth: 1,
+    borderColor: "#E4DDD0",
+    padding: 24,
+  },
+  header: { gap: 2, marginBottom: 8 },
+  tabs: {
+    flexDirection: "row",
+    gap: 4,
+    borderWidth: 1,
+    borderColor: "#E4DDD0",
+    borderRadius: 12,
+    padding: 4,
+    marginBottom: 4,
+  },
+  tab: {
+    flex: 1,
+    minHeight: 36,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  tabTextActive: { color: "#fff" },
   input: {
     borderWidth: 1,
     borderColor: "#E4DDD0",
@@ -117,6 +168,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     minHeight: 44,
+    color: colors.ink,
   },
   button: {
     borderWidth: 1,
