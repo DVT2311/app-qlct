@@ -2,7 +2,7 @@
 
 Ứng dụng quản lý tài chính cá nhân cho **cặp đôi trước hôn nhân**: mỗi người có sổ chi tiêu và tài sản riêng đầy đủ, và khi ghép đôi thì có thêm một "không gian chung" để quản lý khoản chi chung, chia tiền, số dư nợ, quỹ chung, tài sản chung và mục tiêu chung. Gồm app mobile (Android + iOS) và web dashboard.
 
-Đặc tả đầy đủ: **`docs/SPEC.md`** — đọc trước khi làm bất kỳ tính năng nào. Mục 4 (quy tắc kế toán) là phần quan trọng nhất.
+**Bắt đầu phiên làm việc bằng cách đọc theo thứ tự: `docs/PROGRESS.md` (đã làm gì, đang làm gì, làm tiếp ở đâu) → `docs/STRUCTURE.md` (đi đâu để sửa gì) → `docs/SPEC.md` (đặc tả đầy đủ, đọc trước khi làm bất kỳ tính năng nào; mục 4 — quy tắc kế toán — là phần quan trọng nhất).**
 
 ## Công nghệ
 
@@ -24,9 +24,14 @@ packages/tokens    # design tokens
 packages/db-types  # type sinh từ Supabase (supabase gen types)
 supabase/migrations
 supabase/functions
-supabase/seed.sql  # dữ liệu mẫu Minh & Lan (xem SPEC mục 9)
-docs/SPEC.md
+supabase/seed.sql   # dữ liệu mẫu Minh & Lan (xem SPEC mục 9)
+scripts/            # tiện ích dev, gồm script sinh docs/STRUCTURE.md
+docs/SPEC.md        # đặc tả đầy đủ
+docs/PROGRESS.md    # tiến độ — đọc đầu tiên mỗi phiên, cập nhật sau việc lớn
+docs/STRUCTURE.md   # cấu trúc thư mục — phần cây thư mục sinh tự động
 ```
+
+Cây thư mục chi tiết (tự động, luôn mới nhất): xem `docs/STRUCTURE.md`.
 
 ## Lệnh thường dùng
 
@@ -36,7 +41,8 @@ supabase start && supabase db reset     # DB local + seed
 pnpm dev                                 # chạy song song mobile + web
 pnpm --filter core test                  # test logic nghiệp vụ
 pnpm lint && pnpm typecheck
-supabase gen types typescript --local > packages/db-types/index.ts
+supabase gen types typescript --local > packages/db-types/src/index.ts
+pnpm docs:structure                      # cập nhật lại cây thư mục trong docs/STRUCTURE.md
 ```
 
 ## Quy tắc bắt buộc
@@ -58,3 +64,4 @@ supabase gen types typescript --local > packages/db-types/index.ts
 - Làm theo thứ tự milestone ở SPEC mục 10; mỗi milestone kết thúc bằng tiêu chí nghiệm thu ghi ở đó.
 - Trước khi sửa schema: viết migration mới, không sửa migration cũ đã áp dụng.
 - Khi yêu cầu mơ hồ về nghiệp vụ tiền, **dừng lại và hỏi** thay vì tự đoán.
+- Sau khi hoàn thành một milestone, sửa xong một bug đáng kể, hoặc đổi một quyết định kiến trúc — **cập nhật `docs/PROGRESS.md`** (bảng trạng thái milestone, mục "việc cần làm tiếp theo", và "nợ kỹ thuật" nếu phát sinh). Nếu thêm/xoá thư mục lớn, chạy `pnpm docs:structure`.

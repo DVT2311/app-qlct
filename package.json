@@ -12,7 +12,8 @@
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "docs:structure": "node scripts/generate-structure.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
